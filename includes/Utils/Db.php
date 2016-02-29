@@ -341,6 +341,7 @@ class Db
             return self::$_linkId->lastInsertId();
         } catch (PDOException $e) {
             $this->_error = $e->getMessage();
+            echo $this->_error;
             return false;
         }
     }

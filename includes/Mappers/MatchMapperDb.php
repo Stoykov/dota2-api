@@ -224,6 +224,7 @@ class MatchMapperDb extends MatchMapper
      */
     public function delete($matchId)
     {
+        $matchId = (int)$matchId;
         if (!self::matchExists($matchId)) {
             return;
         }
@@ -254,6 +255,7 @@ class MatchMapperDb extends MatchMapper
      */
     public static function matchExists($matchId)
     {
+        $matchId = (int)$matchId;
         $db = Db::obtain();
         $r = $db->queryFirstPDO(
             'SELECT match_id FROM ' . Db::realTablename('matches') . ' WHERE match_id = ?',

@@ -91,16 +91,22 @@ class LeagueMapper
                         break;
                 }
             }
+
+            $liveMatch->addDireScoreBoard((array)$game->scoreboard->dire);
+            $liveMatch->addRadiantScoreBoard((array)$game->scoreboard->radiant);
+
             $a_game = (array)$game;
             unset($a_game['players']);
-            $a_game['radiant_team_id'] = (string)$a_game['radiant_team']->team_id;
-            $a_game['radiant_name'] = (string)$a_game['radiant_team']->team_name;
-            $a_game['radiant_logo'] = (string)$a_game['radiant_team']->team_logo;
-            $a_game['radiant_team_complete'] = ($a_game['radiant_team']->complete === 'false') ? 0 : 1;
-            $a_game['dire_team_id'] = (string)$a_game['dire_team']->team_id;
-            $a_game['dire_name'] = (string)$a_game['dire_team']->team_name;
-            $a_game['dire_logo'] = (string)$a_game['dire_team']->team_logo;
-            $a_game['dire_team_complete'] = ($a_game['dire_team']->complete === 'false') ? 0 : 1;
+            $a_game['radiant_team_id'] = isset($a_game['radiant_team']) ? (string)$a_game['radiant_team']->team_id : false;
+            $a_game['radiant_name'] = isset($a_game['radiant_team']) ? (string)$a_game['radiant_team']->team_name : false;
+            $a_game['radiant_logo'] = isset($a_game['radiant_team']) ? (string)$a_game['radiant_team']->team_logo : false;
+            $a_game['radiant_team_complete'] = (isset($a_game['radiant_team']) && $a_game['radiant_team']->complete === 'false') ? 0 : 1;
+            $a_game['dire_team_id'] = isset($a_game['dire_team']) ? (string)$a_game['dire_team']->team_id : false;
+            $a_game['dire_name'] = isset($a_game['dire_team']) ? (string)$a_game['dire_team']->team_name : false;
+            $a_game['dire_logo'] = isset($a_game['dire_team']) ? (string)$a_game['dire_team']->team_logo : false;
+            $a_game['dire_team_complete'] = (isset($a_game['dire_team']) && $a_game['dire_team']->complete === 'false') ? 0 : 1;
+            $a_game['duration'] = isset($a_game['duration']) ? (float)$a_game['scoreboard']->duration : 0;
+            $a_game['roshan_respawn'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->roshan_respawn_timer : 0;
             unset($a_game['dire_team'], $a_game['radiant_team']);
             $liveMatch->setArray($a_game);
             array_push($liveMatches, $liveMatch);

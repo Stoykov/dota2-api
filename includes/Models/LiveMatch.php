@@ -26,6 +26,14 @@ class LiveMatch extends Match
      */
     protected $_league_id;
     /**
+     * @var float
+     */
+    protected $_duration;
+    /**
+     * @var int
+     */
+    protected $_roshan_respawn;
+    /**
      * @var array
      */
     protected $_radiant_team = array();
@@ -41,7 +49,22 @@ class LiveMatch extends Match
     /**
      * @var array
      */
+    protected $_radiant_scoreboard = array();
+
+    /**
+     * @var array
+     */
+    protected $_dire_scoreboard = array();
+
+    /**
+     * @var array
+     */
     protected $_unassigned = array();
+
+    /**
+     * @var string
+     **/
+    protected $_stage_name;
 
     /**
      * @param array $broadcaster
@@ -81,5 +104,13 @@ class LiveMatch extends Match
     {
         $this->_dire_team[$player_info['account_id']] = $player_info;
         return $this;
+    }
+
+    public function addRadiantScoreBoard(array $radScore) {
+        $this->_radiant_scoreboard = $radScore;
+    }
+
+    public function addDireScoreBoard(array $direScore) {
+        $this->_dire_scoreboard = $direScore;
     }
 }
