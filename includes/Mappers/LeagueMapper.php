@@ -105,7 +105,7 @@ class LeagueMapper
             $a_game['dire_name'] = isset($a_game['dire_team']) ? (string)$a_game['dire_team']->team_name : false;
             $a_game['dire_logo'] = isset($a_game['dire_team']) ? (string)$a_game['dire_team']->team_logo : false;
             $a_game['dire_team_complete'] = (isset($a_game['dire_team']) && $a_game['dire_team']->complete === 'false') ? 0 : 1;
-            $a_game['duration'] = isset($a_game['duration']) ? (float)$a_game['scoreboard']->duration : 0;
+            $a_game['duration'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->duration : 0;
             $a_game['roshan_respawn'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->roshan_respawn_timer : 0;
             unset($a_game['dire_team'], $a_game['radiant_team']);
             $liveMatch->setArray($a_game);
