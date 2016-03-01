@@ -41,7 +41,7 @@ class MatchMapperWeb extends MatchMapper
     {
         $request = new request(self::STEAM_MATCH_URL, array('match_id' => $this->getMatchId()));
         $matchInfo = $request->send();
-        if (null === $matchInfo) {
+        if (null === $matchInfo || $matchInfo->error) {
             return null;
         }
         $match = new Match();
