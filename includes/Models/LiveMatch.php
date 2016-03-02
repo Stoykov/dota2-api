@@ -67,6 +67,16 @@ class LiveMatch extends Match
     protected $_stage_name;
 
     /**
+     * @var string
+     **/
+    protected $_stage_name;
+
+    /**
+     * @var int
+     **/
+    protected $_series_id;
+
+    /**
      * @param array $broadcaster
      * @return LiveMatch
      */
