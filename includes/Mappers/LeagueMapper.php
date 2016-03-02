@@ -109,7 +109,8 @@ class LeagueMapper
             $a_game['roshan_respawn'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->roshan_respawn_timer : 0;
 
             if (isset($a_game['stage_name']) && $a_game['stage_name'] != "") {
-                $a_game['stage_name'] = end(explode("_", $a_game['stage_name']));
+                $a_game['stage_name'] = explode("_", $a_game['stage_name']);
+                $a_game['stage_name'] = end($a_game['stage_name']);
                 $a_game['stage_name'] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $a_game['stage_name']);
                 $a_game['stage_name'] = ucwords($a_game['stage_name']);
             }
