@@ -107,6 +107,13 @@ class LeagueMapper
             $a_game['dire_team_complete'] = (isset($a_game['dire_team']) && $a_game['dire_team']->complete === 'false') ? 0 : 1;
             $a_game['duration'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->duration : 0;
             $a_game['roshan_respawn'] = isset($a_game['scoreboard']) ? (int)$a_game['scoreboard']->roshan_respawn_timer : 0;
+
+            if (isset($a_game['stage_name']) && $a_game['stage_name'] != "") {
+                $a_game['stage_name'] = end(explode("_", $a_game['stage_name']));
+                $a_game['stage_name'] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $a_game['stage_name']);
+                $a_game['stage_name'] = ucwords($a_game['stage_name']);
+            }
+
             unset($a_game['dire_team'], $a_game['radiant_team']);
             $liveMatch->setArray($a_game);
             array_push($liveMatches, $liveMatch);
