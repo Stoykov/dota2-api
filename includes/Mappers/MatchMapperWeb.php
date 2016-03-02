@@ -52,7 +52,7 @@ class MatchMapperWeb extends MatchMapper
         $data = (array)$matchInfo;
         unset($data['players']);
         $data['start_time'] = date('Y-m-d H:i:s', $data['start_time']);
-        $data['radiant_win'] = ($data['radiant_win'] === 'true') ? '1' : '0';
+        $data['radiant_win'] = (isset($data['radiant_win']) && $data['radiant_win'] === 'true') ? '1' : '0';
         $match->setArray($data);
         // slots info
         foreach ($players as $player) {
