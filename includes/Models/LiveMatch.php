@@ -74,6 +74,11 @@ class LiveMatch extends Match
     /**
      * @var int
      **/
+    protected $_series_type;
+
+    /**
+     * @var int
+     **/
     protected $_game_number;
 
     /**
