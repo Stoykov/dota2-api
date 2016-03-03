@@ -82,6 +82,16 @@ class LiveMatch extends Match
     protected $_game_number;
 
     /**
+     * @var int
+     **/
+    protected $_radiant_series_wins;
+
+    /**
+     * @var int
+     **/
+    protected $_dire_series_wins;
+
+    /**
      * @param array $broadcaster
      * @return LiveMatch
      */
