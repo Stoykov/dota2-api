@@ -26,6 +26,14 @@ class Request
      * @var array
      */
     private $_params;
+    /**
+     * @var string
+     */
+    private $_ip;
+    /**
+     * @var string
+     */
+    private $_apiKey;
 
     /**
      * Get url
@@ -96,10 +104,12 @@ class Request
      * @param string $url
      * @param array $params
      */
-    public function __construct($url, array $params)
+    public function __construct($url, array $params, $ip = false, $apiKey)
     {
         $this->_url = $url;
         $this->_params = $params;
+        $this->_ip = $ip;
+        $this->_apiKey = $apiKey;
     }
 
     /**
@@ -113,7 +123,11 @@ class Request
         $url = $this->_url;
         $d = '';
         $this->_params['format'] = 'xml';
-        $this->_params['key'] = self::$apiKey;
+
+        if (!$this->_apiKey)
+            $this->_params['key'] = self::$apiKey;
+        else
+            $this->_params['key'] = $this->_apiKey;
         // The language to retrieve results in (see http://en.wikipedia.org/wiki/ISO_639-1 for the language codes (first
         // two characters) and http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes for the country codes (last two characters))
         $this->_params['language'] = 'en_us';
@@ -129,6 +143,9 @@ class Request
         // Ignore SSL warnings and questions
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+        if ($this->_ip)
+            curl_setopt($ch, CURLOPT_INTERFACE, $this->_ip);
 
         $r = curl_exec($ch);
         curl_close($ch);

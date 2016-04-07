@@ -39,19 +39,26 @@ class MatchMapperWeb extends MatchMapper
      */
     public function load()
     {
-        $request = new request(self::STEAM_MATCH_URL, array('match_id' => $this->getMatchId()));
+        $request = new request(self::STEAM_MATCH_URL, array('match_id' => $this->getMatchId()), $this->getIP(), $this->getAPI());
         $matchInfo = $request->send();
         if (null === $matchInfo || $matchInfo->error) {
             return null;
         }
         $match = new Match();
         $players = array();
-        foreach ($matchInfo->players->player as $key => $player) {
+
+        if (isset($matchInfo->players->player)) {
+            $playerInfo = $matchInfo->players->player;
+        } else {
+            $playerInfo = $matchInfo->players;
+        }
+
+        foreach ($playerInfo as $key => $player) {
             $players[] = $player;
         }
         $data = (array)$matchInfo;
         unset($data['players']);
-        $data['start_time'] = date('Y-m-d H:i:s', $data['start_time']);
+        $data['start_time'] = isset($data['start_time']) ? date('Y-m-d H:i:s', $data['start_time']) : '0000-00-00 00:00:00';
         $data['radiant_win'] = (isset($data['radiant_win']) && $data['radiant_win'] === 'true') ? '1' : '0';
         $match->setArray($data);
         // slots info
