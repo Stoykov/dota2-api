@@ -104,7 +104,7 @@ class Request
      * @param string $url
      * @param array $params
      */
-    public function __construct($url, array $params, $ip = false, $apiKey)
+    public function __construct($url, array $params, $ip = false, $apiKey = false)
     {
         $this->_url = $url;
         $this->_params = $params;
